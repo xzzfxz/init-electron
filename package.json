@@ -1,0 +1,72 @@
+{
+  "name": "init-electron",
+  "private": true,
+  "version": "0.0.0",
+  "main": "dist/electron/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "rimraf release && vue-tsc --noEmit && vite build && electron-builder",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.1",
+    "@babel/node": "^7.19.1",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "@vueuse/electron": "^9.2.0",
+    "electron": "^20.1.4",
+    "electron-builder": "^23.3.3",
+    "electron-devtools-installer": "^3.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0",
+    "vite-plugin-electron": "^0.9.3",
+    "vite-plugin-electron-renderer": "^0.9.3",
+    "vue-tsc": "^0.40.4"
+  },
+  "build": {
+    "appId": "init-electron",
+    "productName": "init-electron",
+    "directories": {
+      "output": "release/${version}"
+    },
+    "files": [
+      "dist"
+    ],
+    "mac": {
+      "artifactName": "${productName}_${version}.${ext}",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}_${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://127.0.0.1:5173"
+      }
+    ],
+    "releaseInfo": {
+      "releaseNotes": "版本更新具体内容"
+    }
+  }
+}
