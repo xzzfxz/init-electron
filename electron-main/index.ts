@@ -9,9 +9,9 @@ const createWindow = () => {
     height: 800,
     webPreferences: {
       // 是否开启隔离上下文
-      contextIsolation: false,
+      contextIsolation: true,
       // 渲染进程使用Node API
-      nodeIntegration: true,
+      nodeIntegration: false,
       // 需要引用js(后缀名改为js，源文件可以用ts)文件，不能用ts
       preload: path.join(__dirname, '../electron-preload/index.js'),
     },
@@ -41,6 +41,6 @@ app.on('window-all-closed', () => {
   }
 });
 
-ipcMain.on('window-new', (e: Event, data: string) => {
+ipcMain.handle('ping', (e: Event, data: string) => {
   console.log(data);
 });

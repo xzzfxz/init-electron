@@ -1,21 +1,24 @@
 <template>
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    <div>node: {{ state.node }}</div>
+    <div>chrome: {{ state.chrome }}</div>
+    <div>electron: {{ state.electron }}</div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue';
-import { useIpcRenderer } from '@vueuse/electron';
+import { reactive, onMounted } from 'vue';
 
-const ipcRenderer = useIpcRenderer();
-ipcRenderer.send('window-new', 'im render');
+const state = reactive({
+  node: window.versions.node,
+  chrome: window.versions.chrome(),
+  electron: window.versions.electron(),
+});
+
+onMounted(() => {
+  // 向主进程发送消息;
+  // window.ipcRenderer.ping();
+});
 </script>
 
 <style scoped>
