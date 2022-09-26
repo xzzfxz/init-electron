@@ -18,7 +18,7 @@ const createWindow = () => {
   });
   // 如果打包了，渲染index.html
   if (app.isPackaged) {
-    win.loadFile(path.join(__dirname, `../index.html#login`));
+    win.loadFile(path.join(__dirname, '../index.html'), { hash: 'login' });
   } else {
     win.webContents.openDevTools();
     const url = 'http://localhost:5173/#/login';
