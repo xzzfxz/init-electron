@@ -1,25 +1,8 @@
 <template>
-  <div>
-    <div>node: {{ state.node }}</div>
-    <div>chrome: {{ state.chrome }}</div>
-    <div>electron: {{ state.electron }}</div>
-  </div>
+  <router-view></router-view>
 </template>
 
-<script setup lang="ts">
-import { reactive, onMounted } from 'vue';
-
-const state = reactive({
-  node: window.versions.node,
-  chrome: window.versions.chrome(),
-  electron: window.versions.electron(),
-});
-
-onMounted(() => {
-  // 向主进程发送消息;
-  // window.ipcRenderer.ping();
-});
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .logo {

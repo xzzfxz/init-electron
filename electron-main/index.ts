@@ -18,10 +18,10 @@ const createWindow = () => {
   });
   // 如果打包了，渲染index.html
   if (app.isPackaged) {
-    win.loadFile(path.join(__dirname, '../index.html'));
+    win.loadFile(path.join(__dirname, `../index.html#login`));
   } else {
     win.webContents.openDevTools();
-    const url = 'http://localhost:5173';
+    const url = 'http://localhost:5173/#/login';
     win.loadURL(url);
   }
 };

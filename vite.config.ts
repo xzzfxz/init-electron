@@ -28,4 +28,9 @@ export default defineConfig({
     // 默认情况下，若 outDir 在 root 目录下，则 Vite 会在构建时清空该目录
     emptyOutDir: false,
   },
+  resolve: {
+    alias: {
+      '@': path.join(__dirname, '/src'),
+    },
+  },
 });
