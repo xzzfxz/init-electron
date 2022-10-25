@@ -1,7 +1,9 @@
 import { contextBridge, ipcRenderer } from 'electron';
+import { jugdgeFileExist, readFile } from './files';
+import { TO_MAIN } from './../src/const/ipc';
 
 // 暴露变量
-contextBridge.exposeInMainWorld('versions', {
+contextBridge.exposeInMainWorld('store', {
   node: process.versions.node,
   chrome: () => process.versions.chrome,
   electron: () => process.versions.electron,
@@ -9,5 +11,11 @@ contextBridge.exposeInMainWorld('versions', {
 
 // 进程间通信
 contextBridge.exposeInMainWorld('ipcRenderer', {
-  ping: () => ipcRenderer.invoke('ping'),
+  showOpenDialog: () => ipcRenderer.invoke(TO_MAIN.SHOW_OPEN_DIALOG),
+});
+
+// 静态方法
+contextBridge.exposeInMainWorld('proxy', {
+  jugdgeFileExist,
+  readFile,
 });

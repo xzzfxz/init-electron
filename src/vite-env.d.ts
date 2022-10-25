@@ -8,7 +8,6 @@ declare module '*.vue' {
 
 interface Window {
   versions: any;
-  ipcRenderer: {
-    ping: () => {};
-  };
+  ipcRenderer: any;
+  proxy: any;
 }

@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
+import './dialog';
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
@@ -8,6 +9,7 @@ const createWindow = () => {
     width: 1200,
     height: 800,
     webPreferences: {
+      sandbox: false,
       // 是否开启隔离上下文
       contextIsolation: true,
       // 渲染进程使用Node API
@@ -39,8 +41,4 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
-});
-
-ipcMain.handle('ping', (e: Event, data: string) => {
-  console.log(data);
 });
