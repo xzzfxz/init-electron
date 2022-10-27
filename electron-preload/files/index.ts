@@ -1,5 +1,5 @@
 import fs from 'fs';
-import path from 'path'
+import path from 'path';
 
 // 判断文件是否存在
 export const jugdgeFileExist = (filePath: string) => {
@@ -12,8 +12,8 @@ const transformBufferToFile = (buffer: Buffer[], fileName: string) => {
     return null;
   }
   const blob = new Blob(buffer);
-  return new File([blob], fileName)
-}
+  return new File([blob], fileName);
+};
 
 /**
  * @description: 读取文件，
@@ -22,18 +22,18 @@ const transformBufferToFile = (buffer: Buffer[], fileName: string) => {
  * @return {*}
  */
 export const readFile = (filePath: string, returnFile: boolean = true) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     fs.readFile(filePath, (err, data) => {
       if (err) {
-        resolve(null)
+        resolve(null);
       } else {
         if (returnFile) {
-          const res = transformBufferToFile(data, path.basename(filePath));
-          resolve({data: res, name: path.basename(filePath)})
+          const res = transformBufferToFile([data], path.basename(filePath));
+          resolve({ data: res, name: path.basename(filePath) });
         } else {
-          resolve({data, name: path.basename(filePath)})
+          resolve({ data, name: path.basename(filePath) });
         }
       }
-    })
-  })
+    });
+  });
 };

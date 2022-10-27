@@ -11,7 +11,8 @@ contextBridge.exposeInMainWorld('store', {
 
 // 进程间通信
 contextBridge.exposeInMainWorld('ipcRenderer', {
-  showOpenDialog: () => ipcRenderer.invoke(TO_MAIN.SHOW_OPEN_DIALOG),
+  showOpenDialog: (options) =>
+    ipcRenderer.invoke(TO_MAIN.SHOW_OPEN_DIALOG, options),
 });
 
 // 静态方法

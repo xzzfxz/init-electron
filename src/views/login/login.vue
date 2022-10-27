@@ -11,11 +11,16 @@ const filePath = ref('');
 
 // 选择文件
 const selectFile = () => {
-  window.ipcRenderer.showOpenDialog().then((res: any) => {
-    if (!res.canceled) {
-      filePath.value = res.filePaths[0];
-    }
-  });
+  window.ipcRenderer
+    .showOpenDialog({
+      title: '选择excel文件',
+      filters: [{ name: 'excel', extensions: ['xlsx', 'xls'] }],
+    })
+    .then((res: any) => {
+      if (!res.canceled) {
+        filePath.value = res.filePaths[0];
+      }
+    });
 };
 
 // 判断文件是否存在

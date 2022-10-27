@@ -8,5 +8,5 @@ export const showOpenDialog = async (options: any = {}) => {
 };
 
 ipcMain.handle(TO_MAIN.SHOW_OPEN_DIALOG, async (e: Event, data: string) => {
-  return await showOpenDialog();
+  return await showOpenDialog(data);
 });
