@@ -4,7 +4,7 @@ import './dialog';
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
-const createWindow = () => {
+const createWindow = (partition: string) => {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -16,8 +16,10 @@ const createWindow = () => {
       nodeIntegration: false,
       // 需要引用js(后缀名改为js，源文件可以用ts)文件，不能用ts
       preload: path.join(__dirname, '../electron-preload/index.js'),
+      // partition: 'persist:' + partition,
     },
   });
+
   // 如果打包了，渲染index.html
   if (app.isPackaged) {
     win.loadFile(path.join(__dirname, '../index.html'), { hash: 'login' });
@@ -28,14 +30,27 @@ const createWindow = () => {
   }
 };
 
-app.whenReady().then(() => {
-  createWindow();
-  app.on('activate', () => {
-    if (!BrowserWindow.getAllWindows().length) {
-      createWindow();
-    }
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  // 第二个实例
+  app.whenReady().then(() => {
+    createWindow('second');
+    app.on('activate', () => {
+      if (!BrowserWindow.getAllWindows().length) {
+        createWindow('second');
+      }
+    });
   });
-});
+} else {
+  app.whenReady().then(() => {
+    createWindow('first');
+    app.on('activate', () => {
+      if (!BrowserWindow.getAllWindows().length) {
+        createWindow('first');
+      }
+    });
+  });
+}
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

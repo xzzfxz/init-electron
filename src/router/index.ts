@@ -13,6 +13,11 @@ const routes: RouteRecordRaw[] = [
     name: 'login',
     component: Login,
   },
+  {
+    path: '/db',
+    name: 'db',
+    component: () => import('@/views/indexeddb/index.vue')
+  }
 ];
 
 const router = createRouter({

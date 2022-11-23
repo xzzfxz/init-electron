@@ -3,6 +3,7 @@
   <div class="open" @click="selectFile">选择文件</div>
   <div class="open" @click="judgeFileExist">判断文件是否存在</div>
   <div class="open" @click="handleReadFile">读取文件</div>
+  <div class="open">存储数据</div>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
